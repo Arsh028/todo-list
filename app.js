@@ -2,10 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const date = require( __dirname + "/date.js")
-// <% for(var i=0;i<newListItems.length;i++)%> 
-// <%{%>
-//     <li><%= newListItems[i] %></li>
-// <%}%> 
 
 app.set("view engine","ejs");
 
