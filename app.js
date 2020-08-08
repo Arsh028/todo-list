@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static("public"));
 
 //creating database named todolistDB if not exist
-mongoose.connect("mongodb://localhost:27017/todolistDB",{useNewUrlParser : true ,useUnifiedTopology : true});
+mongoose.connect("mongodb+srv://admin-arsh:test123@cluster0.owpja.mongodb.net/todolistDB",{useNewUrlParser : true ,useUnifiedTopology : true});
 //creating schema of the database
 const Items_schema = {
     name : String
