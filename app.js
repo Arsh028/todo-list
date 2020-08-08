@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 //the line below will display the ejs template with css as it is set to static
 app.use(express.static("public"));
 
-//creating database named todolistDB
+//creating database named todolistDB if not exist
 mongoose.connect("mongodb://localhost:27017/todolistDB",{ useNewUrlParser: true });
 
 //creating schema of the database
@@ -21,7 +21,7 @@ const Items_schema = {
     name : String
 };
 
-//creating a collecton of items named Item
+//creating a collecton of items named Item (table)
 const Item = mongoose.model("Item",Items_schema);
 
 
@@ -63,6 +63,19 @@ app.post("/",function(req,res){
     const item = new Item({name : itemName});
     item.save();
     res.redirect("/");
+});
+
+//delete fnction || user post herer
+app.post("/delete",function(req,res){
+    const checkedItemid = req.body.checkbox;
+    console.log("element id to delete:"+checkedItemid);
+
+    Item.findOneAndRemove({_id : checkedItemid},function(err){
+        if(!err){
+            console.log("deleted id:"+checkedItem);
+            res.redirect("/");  
+        }  
+    });
 });
 
 app.listen(3000,function(){
