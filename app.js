@@ -14,8 +14,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static("public"));
 
 //creating database named todolistDB if not exist
-mongoose.connect("mongodb://localhost:27017/todolistDB",{ useNewUrlParser: true });
-
+mongoose.connect("mongodb://localhost:27017/todolistDB",{useNewUrlParser : true ,useUnifiedTopology : true});
 //creating schema of the database
 const Items_schema = {
     name : String
@@ -30,8 +29,6 @@ const item1 = new Item({name : "Welcome"});
 const item2 = new Item({name : "Hit + button to add items"});
 const item3 = new Item({name : "<---Hit this checkbox to delete"});
 const defaultarr = [item1,item2,item3];
-
-
 
 //the user gets this,renders this
 app.get("/",function(req,res){
@@ -68,13 +65,12 @@ app.post("/",function(req,res){
 //delete fnction || user post herer
 app.post("/delete",function(req,res){
     const checkedItemid = req.body.checkbox;
-    console.log("element id to delete:"+checkedItemid);
 
-    Item.findOneAndRemove({_id : checkedItemid},function(err){
+    Item.findByIdAndRemove(checkedItemid,function(err){
         if(!err){
-            console.log("deleted id:"+checkedItem);
             res.redirect("/");  
         }  
+        else{console.log("else mai hai");console.log(err);res.redirect("/");}
     });
 });
 
